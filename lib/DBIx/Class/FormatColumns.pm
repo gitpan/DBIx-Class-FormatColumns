@@ -3,12 +3,14 @@ package DBIx::Class::FormatColumns;
 use strict;
 use warnings;
 use vars qw/$VERSION/;
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use base qw/DBIx::Class/;
 
 use DateTime::Format::DBI;
 use HTML::Entities;
+
+__PACKAGE__->mk_classdata( format_datatype_columns_only => 0 );
 
 =head1 NAME
 
@@ -127,15 +129,18 @@ sub format_columns {
 
     foreach my $col (@columns) {
         my $ci = $self->column_info( $col );
-
-        my @names = ( $col );
-        push @names, $ci->{accessor}
-          if exists $ci->{accessor}
-          && $ci->{accessor} ne $col;
-
+        
         my $type = exists $ci->{data_type}
           ? lc $ci->{data_type}
           : '';
+          
+        next if $self->format_datatype_columns_only
+          && $type eq '';
+                
+        my @names = ( $col );
+        push @names, $ci->{accessor}
+          if exists $ci->{accessor}
+          && $ci->{accessor} ne $col;        
 
         foreach my $name (@names) {
             no strict 'refs';
@@ -177,6 +182,11 @@ sub format_columns {
         }
     }
 }
+
+=head2 format_datatype_columns_only( $boolean )
+
+If set to a true value, format_columns will only format columns
+that have a I<data_type> configured. The default value is 0.
 
 =head1 AUTHOR
 

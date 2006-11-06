@@ -1,6 +1,6 @@
 ---
 name: DBIx-Class-FormatColumns
-version: 0.01
+version: 0.02
 author:
   - 'Sascha Kiefer <esskar@cpan.org>'
 abstract: Creates format accessors for you
@@ -14,7 +14,7 @@ requires:
 provides:
   DBIx::Class::FormatColumns:
     file: lib/DBIx/Class/FormatColumns.pm
-    version: 0.01
+    version: 0.02
 generated_by: Module::Build version 0.2805
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

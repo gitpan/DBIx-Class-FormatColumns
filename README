@@ -85,6 +85,10 @@ METHODS
     Creates format accessors for every column in *@columns*. Uses
     __PACKAGE__->columns if *@columns* is empty;
 
+  format_datatype_columns_only( $boolean )
+    If set to a true value, format_columns will only format columns that
+    have a *data_type* configured. The default value is 0.
+
 AUTHOR
     Sascha Kiefer <esskar@cpan.org>
 
